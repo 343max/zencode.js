@@ -1,0 +1,1 @@
+$().ready(function() {	$('code.sample').each(function() {		var $this = $(this);				var result = eval($this.text());						$this.after($('<p>').addClass('result').append(result),					$('<p>').addClass('resultCode').text($('<span>').append(result).html()));	});});
