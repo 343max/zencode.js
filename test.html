@@ -18,7 +18,7 @@
 <code class="sample">$.zen.expand('ul.list>li*3')</code>
 <code class="sample">$.zen.expand('ul.list>li.nav*3>a.externalLink')</code>
 
-<code class="sample">$('p.result11').expand('span.attention').text('Hello!').css('background-color', 'red')</code>
+<code class="sample">$('p.result11').expand('span.attention*2>a*2', function() {			console.dir(this);			if(window.counting == undefined) counting = 0;			counting++;			this.text('counting: '+ counting);		}).css('border', 'black')</code>
 <p class="result11"></p>
 <code class="sample">$('p.result12').append($.zen.expand('ul>li*5>a').css('background-color', 'red'))</code>
 <p class="result12"></p>

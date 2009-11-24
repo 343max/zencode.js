@@ -1,10 +1,6 @@
-jQuery.fn.expand = function(selector) {
-	var $this = $(this);
+jQuery.fn.expand = function(selector, callback) {
+	var $this = $(this);	if(selector == undefined) return $this;
 	
-	if(selector == undefined) return $this;
-	
-/*	$(this).append($('<span>').text('xxx')); */
-
 	selector.replace(/^([^>+]+)(([>+])(.*))?/, function($0, instruction, $1, operator, subSelector) {
 		instruction.replace(/^([^*]+)(\*([0-9]+))?/, function($0, tag, multiplier, factor) {
 			if(factor == undefined) factor = 1;
@@ -28,28 +24,12 @@ jQuery.fn.expand = function(selector) {
 				});
 				
 				//$(this).append(el);
-				$this.append(el);
-				
-				if(operator == '+') {
-					$this.expand(subSelector);
+				$this.append(el);								try { console.log(operat); } catch(e) {};
+								if(operator == undefined) {					// deepest iteration - let's bring in the callback										if(callback != undefined) jQuery.each([el], callback);									} else if(operator == '+') {
+					$this.expand(subSelector, callback);
 				} else if (operator == '>') {
-					el.expand(subSelector);
+					el.expand(subSelector, callback);
 				}
-				
-				/*
-
-				if(subSelector != undefined) {
-					var sub = jQuery.zen.subExpand(subSelector);
-					if(operator == '>') {
-						$.each(sub, function() {
-							el.append(this);
-						});
-					} else if(operator == '+') {
-						$.each(sub, function() {
-							result.push(this);
-						});
-					}
-				}*/
 			}
 		});
 	});
@@ -59,15 +39,7 @@ jQuery.fn.expand = function(selector) {
 }
 
 jQuery.zen = {
-	expand: function(selector) {
-		/*var r = $('<span>');
-		
-		jQuery.each(jQuery.zen.subExpand(selector), function() {
-			r.append(this);
-		});
-		
-		return r.find('>*');*/
-		
-		return $('<span>').expand(selector);
+	expand: function(selector, callback) {
+		return $('<span>').expand(selector, callback);
 	},
 }
